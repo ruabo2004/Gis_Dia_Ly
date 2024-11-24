@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Removed local jQuery reference and only use CDN version -->
+    <script src="js/proj4.js"></script>
+    <script src="js/ol.js"></script>
+    <script src="js/ol.js.map"></script>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="css/ol.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Kiem_Tra</title>
+    <style>
+        /* Đặt chiều cao cho bản đồ */
+        #map {
+            width: 100%;
+            height: 500px; /* Có thể điều chỉnh chiều cao tùy theo yêu cầu */
+        }
+        /* Đặt kiểu cho phần hiển thị thông tin */
+        #info {
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .ol-popup {
+            position: absolute;
+            
+            background-color: white;
+            
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            
+            padding: 15px;
+            
+            border-radius: 10px;
+            
+            border: 1px solid #cccccc;
+            
+            bottom: 12px;
+            left: -50px;
+            min-width: 280px;
+            }
+            
+            .ol-popup:after, .ol-popup:before {
+                top: 100%;
+                border: solid transparent;
+                content: "";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }      
+            .ol-popup:after {
+                border-top-color: white;
+                border-width: 10px;        
+                left: 48px;
+                margin-left: -10px;
+            }
+    </style>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <input type="checkbox" id="checkvung">
+    <label for="checkvung">Hiện trạng sử dụng đất</label>
+    <input type="checkbox" id="checkxudong">
+    <label for="checkxudong">Hiện xu đông</label>
+    <input type="checkbox" id="checkrgtd">
+    <label for="checkrgtd">Hiện ranh giới thửa đất</label>
+    
+    <!-- <input type="checkbox" id="loaidat">
+    <label for="loaidat">Bảng chú giải</label>
+    
+    <img id="chugiai" src="http://localhost:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=dechan:ThuaDatDayDu" alt="" style="display:none;">
+     -->
+    <!-- Thêm phần tử div để hiển thị thông tin -->
+    <!-- <div id="info"></div> -->
+
+    <!-- <script src="./js/search.js"></script>
+    <form>
+        <input type="text" size="30" onkeyup="showResult(this.value)" placeholder="tim kiem">
+        <div id="livesearch"></div>
+    </form> -->
+
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("checkvung").checked  = true;
+            document.getElementById("checkrgtd").checked  = true;
+            document.getElementById("checkxudong").checked  = true;
+            document.getElementById("loaidat").checked  = true;
+
+            const loaidatCheckbox = document.getElementById("loaidat");
+            const chugiaiDiv = document.getElementById("chugiai");
+            chugiaiDiv.style.display = "block"
+            loaidatCheckbox.addEventListener("change", function() {
+                if (loaidatCheckbox.checked) {
+                    chugiaiDiv.style.display = "block";
+                } else {
+                    chugiaiDiv.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
